@@ -1,11 +1,14 @@
 <?xml version="1.0" ?>
 <sdf version="1.8">
   <world name="competition_maze">
+    <!-- Physics configuration -->
     <physics name="1ms" type="ignored">
       <max_step_size>0.001</max_step_size>
       <real_time_factor>1.0</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
     </physics>
     
+    <!-- Global light source -->
     <light type="directional" name="sun">
       <cast_shadows>true</cast_shadows>
       <pose>0 0 10 0 0 0</pose>
@@ -41,26 +44,97 @@
       </link>
     </model>
     
-    <!-- Maze Walls - using wood material -->
-    <!-- Wall properties: height=0.3m, thickness=0.02m -->
-    <!-- Corridors width = 0.35m -->
-    
-    <!-- Starting area at (0,0) -->
-    <model name="maze_wall_start_1">
+    <!-- Outer boundary walls -->
+    <model name="outer_wall_north">
       <static>true</static>
       <link name="link">
-        <pose>0.185 0.35 0.15 0 0 0</pose>
+        <pose>1.5 3.0 0.15 0 0 0</pose>
         <collision name="collision">
           <geometry>
             <box>
-              <size>0.37 0.02 0.3</size>
+              <size>3.0 0.02 0.3</size>
             </box>
           </geometry>
         </collision>
         <visual name="visual">
           <geometry>
             <box>
-              <size>0.37 0.02 0.3</size>
+              <size>3.0 0.02 0.3</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.7 0.5 0.3 1</ambient>
+            <diffuse>0.7 0.5 0.3 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="outer_wall_east">
+      <static>true</static>
+      <link name="link">
+        <pose>3.0 1.5 0.15 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.02 3.0 0.3</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.02 3.0 0.3</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.7 0.5 0.3 1</ambient>
+            <diffuse>0.7 0.5 0.3 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="outer_wall_south">
+      <static>true</static>
+      <link name="link">
+        <pose>1.5 0.0 0.15 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>3.0 0.02 0.3</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>3.0 0.02 0.3</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.7 0.5 0.3 1</ambient>
+            <diffuse>0.7 0.5 0.3 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="outer_wall_west">
+      <static>true</static>
+      <link name="link">
+        <pose>0.0 1.5 0.15 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.02 3.0 0.3</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.02 3.0 0.3</size>
             </box>
           </geometry>
           <material>
@@ -71,21 +145,22 @@
       </link>
     </model>
     
-    <model name="maze_wall_start_2">
+    <!-- Entry point gap in south wall -->
+    <model name="entry_wall_left">
       <static>true</static>
       <link name="link">
-        <pose>-0.185 0.35 0.15 0 0 0</pose>
+        <pose>0.825 0.0 0.15 0 0 0</pose>
         <collision name="collision">
           <geometry>
             <box>
-              <size>0.37 0.02 0.3</size>
+              <size>1.65 0.02 0.3</size>
             </box>
           </geometry>
         </collision>
         <visual name="visual">
           <geometry>
             <box>
-              <size>0.37 0.02 0.3</size>
+              <size>1.65 0.02 0.3</size>
             </box>
           </geometry>
           <material>
@@ -96,22 +171,21 @@
       </link>
     </model>
     
-    <!-- First corridor -->
-    <model name="maze_wall_1">
+    <model name="entry_wall_right">
       <static>true</static>
       <link name="link">
-        <pose>0.375 0.725 0.15 0 0 0</pose>
+        <pose>2.175 0.0 0.15 0 0 0</pose>
         <collision name="collision">
           <geometry>
             <box>
-              <size>0.02 0.75 0.3</size>
+              <size>1.65 0.02 0.3</size>
             </box>
           </geometry>
         </collision>
         <visual name="visual">
           <geometry>
             <box>
-              <size>0.02 0.75 0.3</size>
+              <size>1.65 0.02 0.3</size>
             </box>
           </geometry>
           <material>
@@ -122,10 +196,163 @@
       </link>
     </model>
     
-    <model name="maze_wall_2">
+    <!-- Primary vertical corridor walls -->
+    <model name="corridor_wall_v1">
       <static>true</static>
       <link name="link">
-        <pose>0.025 1.1 0.15 0 0 0</pose>
+        <pose>0.7 1.5 0.15 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.02 2.3 0.3</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.02 2.3 0.3</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.7 0.5 0.3 1</ambient>
+            <diffuse>0.7 0.5 0.3 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="corridor_wall_v2">
+      <static>true</static>
+      <link name="link">
+        <pose>1.4 1.8 0.15 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.02 1.7 0.3</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.02 1.7 0.3</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.7 0.5 0.3 1</ambient>
+            <diffuse>0.7 0.5 0.3 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="corridor_wall_v3">
+      <static>true</static>
+      <link name="link">
+        <pose>2.1 1.5 0.15 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.02 2.0 0.3</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.02 2.0 0.3</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.7 0.5 0.3 1</ambient>
+            <diffuse>0.7 0.5 0.3 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Primary horizontal corridor walls -->
+    <model name="corridor_wall_h1">
+      <static>true</static>
+      <link name="link">
+        <pose>1.05 0.7 0.15 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>2.1 0.02 0.3</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>2.1 0.02 0.3</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.7 0.5 0.3 1</ambient>
+            <diffuse>0.7 0.5 0.3 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="corridor_wall_h2">
+      <static>true</static>
+      <link name="link">
+        <pose>1.4 1.4 0.15 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>1.4 0.02 0.3</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>1.4 0.02 0.3</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.7 0.5 0.3 1</ambient>
+            <diffuse>0.7 0.5 0.3 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="corridor_wall_h3">
+      <static>true</static>
+      <link name="link">
+        <pose>1.75 2.1 0.15 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>2.5 0.02 0.3</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>2.5 0.02 0.3</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.7 0.5 0.3 1</ambient>
+            <diffuse>0.7 0.5 0.3 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+    
+    <!-- Dead end sections -->
+    <model name="dead_end_1">
+      <static>true</static>
+      <link name="link">
+        <pose>1.05 1.05 0.15 0 0 0</pose>
         <collision name="collision">
           <geometry>
             <box>
@@ -146,37 +373,11 @@
         </visual>
       </link>
     </model>
-    
-    <!-- Second corridor with a turn -->
-    <model name="maze_wall_3">
+
+    <model name="dead_end_2">
       <static>true</static>
       <link name="link">
-        <pose>-0.375 0.725 0.15 0 0 0</pose>
-        <collision name="collision">
-          <geometry>
-            <box>
-              <size>0.02 0.75 0.3</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box>
-              <size>0.02 0.75 0.3</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.7 0.5 0.3 1</ambient>
-            <diffuse>0.7 0.5 0.3 1</diffuse>
-          </material>
-        </visual>
-      </link>
-    </model>
-    
-    <model name="maze_wall_4">
-      <static>true</static>
-      <link name="link">
-        <pose>-0.725 1.45 0.15 0 0 0</pose>
+        <pose>0.35 2.5 0.15 0 0 0</pose>
         <collision name="collision">
           <geometry>
             <box>
@@ -197,23 +398,123 @@
         </visual>
       </link>
     </model>
+
+    <model name="dead_end_3">
+      <static>true</static>
+      <link name="link">
+        <pose>2.5 1.75 0.15 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.02 0.7 0.3</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.02 0.7 0.3</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.7 0.5 0.3 1</ambient>
+            <diffuse>0.7 0.5 0.3 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Exit section -->
+    <model name="exit_gap">
+      <static>true</static>
+      <link name="link">
+        <pose>2.5 3.0 0.15 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.35 0.02 0.3</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.02 0.02 0.02</size>
+            </box>
+          </geometry>
+          <transparency>1.0</transparency>
+        </visual>
+      </link>
+    </model>
     
-    <!-- Bridge section (low clearance - 20cm) -->
+    <!-- False exit section -->
+    <model name="false_exit_wall_1">
+      <static>true</static>
+      <link name="link">
+        <pose>2.65 2.6 0.15 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.02 0.2 0.3</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.02 0.2 0.3</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.7 0.5 0.3 1</ambient>
+            <diffuse>0.7 0.5 0.3 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="false_exit_wall_2">
+      <static>true</static>
+      <link name="link">
+        <pose>2.65 2.9 0.15 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.02 0.2 0.3</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.02 0.2 0.3</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.7 0.5 0.3 1</ambient>
+            <diffuse>0.7 0.5 0.3 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+    
+    <!-- Bridge with 20cm headroom -->
     <model name="bridge">
       <static>true</static>
-      <link name="link">
-        <pose>-1.075 1.625 0.2 0 0 0</pose>
+      <!-- Bridge ceiling -->
+      <link name="ceiling">
+        <pose>1.75 1.75 0.2 0 0 0</pose>
         <collision name="collision">
           <geometry>
             <box>
-              <size>0.35 0.35 0.02</size>
+              <size>0.4 0.35 0.02</size>
             </box>
           </geometry>
         </collision>
         <visual name="visual">
           <geometry>
             <box>
-              <size>0.35 0.35 0.02</size>
+              <size>0.4 0.35 0.02</size>
             </box>
           </geometry>
           <material>
@@ -222,20 +523,21 @@
           </material>
         </visual>
       </link>
+      
       <!-- Bridge supports -->
       <link name="support1">
-        <pose>-1.075 1.45 0.1 0 0 0</pose>
+        <pose>1.55 1.75 0.1 0 0 0</pose>
         <collision name="collision">
           <geometry>
             <box>
-              <size>0.35 0.02 0.2</size>
+              <size>0.02 0.35 0.2</size>
             </box>
           </geometry>
         </collision>
         <visual name="visual">
           <geometry>
             <box>
-              <size>0.35 0.02 0.2</size>
+              <size>0.02 0.35 0.2</size>
             </box>
           </geometry>
           <material>
@@ -244,19 +546,20 @@
           </material>
         </visual>
       </link>
+      
       <link name="support2">
-        <pose>-1.075 1.8 0.1 0 0 0</pose>
+        <pose>1.95 1.75 0.1 0 0 0</pose>
         <collision name="collision">
           <geometry>
             <box>
-              <size>0.35 0.02 0.2</size>
+              <size>0.02 0.35 0.2</size>
             </box>
           </geometry>
         </collision>
         <visual name="visual">
           <geometry>
             <box>
-              <size>0.35 0.02 0.2</size>
+              <size>0.02 0.35 0.2</size>
             </box>
           </geometry>
           <material>
@@ -267,230 +570,11 @@
       </link>
     </model>
     
-    <!-- Path after bridge -->
-    <model name="maze_wall_5">
-      <static>true</static>
-      <link name="link">
-        <pose>-1.25 1.975 0.15 0 0 0</pose>
-        <collision name="collision">
-          <geometry>
-            <box>
-              <size>0.02 0.7 0.3</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box>
-              <size>0.02 0.7 0.3</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.7 0.5 0.3 1</ambient>
-            <diffuse>0.7 0.5 0.3 1</diffuse>
-          </material>
-        </visual>
-      </link>
-    </model>
-    
-    <!-- Dead end path -->
-    <model name="maze_wall_dead_end_1">
-      <static>true</static>
-      <link name="link">
-        <pose>-0.9 1.975 0.15 0 0 0</pose>
-        <collision name="collision">
-          <geometry>
-            <box>
-              <size>0.02 0.7 0.3</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box>
-              <size>0.02 0.7 0.3</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.7 0.5 0.3 1</ambient>
-            <diffuse>0.7 0.5 0.3 1</diffuse>
-          </material>
-        </visual>
-      </link>
-    </model>
-    
-    <model name="maze_wall_dead_end_2">
-      <static>true</static>
-      <link name="link">
-        <pose>-1.075 2.325 0.15 0 0 0</pose>
-        <collision name="collision">
-          <geometry>
-            <box>
-              <size>0.35 0.02 0.3</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box>
-              <size>0.35 0.02 0.3</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.7 0.5 0.3 1</ambient>
-            <diffuse>0.7 0.5 0.3 1</diffuse>
-          </material>
-        </visual>
-      </link>
-    </model>
-    
-    <!-- Path to false exit -->
-    <model name="maze_wall_6">
-      <static>true</static>
-      <link name="link">
-        <pose>-1.6 1.625 0.15 0 0 0</pose>
-        <collision name="collision">
-          <geometry>
-            <box>
-              <size>0.7 0.02 0.3</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box>
-              <size>0.7 0.02 0.3</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.7 0.5 0.3 1</ambient>
-            <diffuse>0.7 0.5 0.3 1</diffuse>
-          </material>
-        </visual>
-      </link>
-    </model>
-    
-    <!-- False exit -->
-    <model name="maze_wall_false_exit_1">
-      <static>true</static>
-      <link name="link">
-        <pose>-1.95 1.45 0.15 0 0 0</pose>
-        <collision name="collision">
-          <geometry>
-            <box>
-              <size>0.02 0.35 0.3</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box>
-              <size>0.02 0.35 0.3</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.7 0.5 0.3 1</ambient>
-            <diffuse>0.7 0.5 0.3 1</diffuse>
-          </material>
-        </visual>
-      </link>
-    </model>
-    
-    <model name="maze_wall_false_exit_2">
-      <static>true</static>
-      <link name="link">
-        <pose>-1.95 1.8 0.15 0 0 0</pose>
-        <collision name="collision">
-          <geometry>
-            <box>
-              <size>0.02 0.35 0.3</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box>
-              <size>0.02 0.35 0.3</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.7 0.5 0.3 1</ambient>
-            <diffuse>0.7 0.5 0.3 1</diffuse>
-          </material>
-        </visual>
-      </link>
-    </model>
-    
-    <!-- Path to true exit -->
-    <model name="maze_wall_7">
-      <static>true</static>
-      <link name="link">
-        <pose>-1.6 1.975 0.15 0 0 0</pose>
-        <collision name="collision">
-          <geometry>
-            <box>
-              <size>0.7 0.02 0.3</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box>
-              <size>0.7 0.02 0.3</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.7 0.5 0.3 1</ambient>
-            <diffuse>0.7 0.5 0.3 1</diffuse>
-          </material>
-        </visual>
-      </link>
-    </model>
-    
-    <!-- True exit (with magnets on both sides) -->
-    <model name="true_exit_magnet_1">
-      <static>true</static>
-      <link name="link">
-        <pose>-1.95 2.15 0.05 0 0 0</pose>
-        <visual name="visual">
-          <geometry>
-            <cylinder>
-              <radius>0.02</radius>
-              <length>0.1</length>
-            </cylinder>
-          </geometry>
-          <material>
-            <ambient>0.5 0.5 0.5 1</ambient>
-            <diffuse>0.5 0.5 0.5 1</diffuse>
-          </material>
-        </visual>
-      </link>
-    </model>
-    
-    <model name="true_exit_magnet_2">
-      <static>true</static>
-      <link name="link">
-        <pose>-1.95 2.325 0.05 0 0 0</pose>
-        <visual name="visual">
-          <geometry>
-            <cylinder>
-              <radius>0.02</radius>
-              <length>0.1</length>
-            </cylinder>
-          </geometry>
-          <material>
-            <ambient>0.5 0.5 0.5 1</ambient>
-            <diffuse>0.5 0.5 0.5 1</diffuse>
-          </material>
-        </visual>
-      </link>
-    </model>
-    
-    <!-- Speed bumps (three bumps at different locations) -->
+    <!-- Speed bumps -->
     <model name="speed_bump_1">
       <static>true</static>
       <link name="link">
-        <pose>0 0.7 0.01 0 0 0</pose>
+        <pose>0.5 0.5 0.01 0 0 0</pose>
         <collision name="collision">
           <geometry>
             <box>
@@ -511,22 +595,22 @@
         </visual>
       </link>
     </model>
-    
+
     <model name="speed_bump_2">
       <static>true</static>
       <link name="link">
-        <pose>-1.075 1.275 0.01 0 0 0</pose>
+        <pose>1.2 1.5 0.01 0 0 0</pose>
         <collision name="collision">
           <geometry>
             <box>
-              <size>0.35 0.05 0.02</size>
+              <size>0.05 0.35 0.02</size>
             </box>
           </geometry>
         </collision>
         <visual name="visual">
           <geometry>
             <box>
-              <size>0.35 0.05 0.02</size>
+              <size>0.05 0.35 0.02</size>
             </box>
           </geometry>
           <material>
@@ -536,22 +620,22 @@
         </visual>
       </link>
     </model>
-    
+
     <model name="speed_bump_3">
       <static>true</static>
       <link name="link">
-        <pose>-1.6 1.8 0.01 0 0 0</pose>
+        <pose>0.8 2.2 0.01 0 0 0</pose>
         <collision name="collision">
           <geometry>
             <box>
-              <size>0.05 0.35 0.02</size>
+              <size>0.35 0.05 0.02</size>
             </box>
           </geometry>
         </collision>
         <visual name="visual">
           <geometry>
             <box>
-              <size>0.05 0.35 0.02</size>
+              <size>0.35 0.05 0.02</size>
             </box>
           </geometry>
           <material>
@@ -562,12 +646,11 @@
       </link>
     </model>
     
-    <!-- Containers (water and alcohol) -->
     <!-- Water container -->
-    <model name="water_container_1">
+    <model name="water_container">
       <static>true</static>
       <link name="link">
-        <pose>-0.2 0.7 0.035 0 0 0</pose>
+        <pose>0.5 2.1 0.035 0 0 0</pose>
         <collision name="collision">
           <geometry>
             <cylinder>
@@ -586,16 +669,17 @@
           <material>
             <ambient>0.8 0.8 1.0 0.7</ambient>
             <diffuse>0.8 0.8 1.0 0.7</diffuse>
+            <specular>1.0 1.0 1.0 0.5</specular>
           </material>
         </visual>
       </link>
     </model>
-    
-    <!-- Alcohol container -->
+
+    <!-- Alcohol containers -->
     <model name="alcohol_container_1">
       <static>true</static>
       <link name="link">
-        <pose>-1.45 1.8 0.035 0 0 0</pose>
+        <pose>1.5 1.2 0.035 0 0 0</pose>
         <collision name="collision">
           <geometry>
             <cylinder>
@@ -614,34 +698,121 @@
           <material>
             <ambient>1.0 0.8 0.8 0.7</ambient>
             <diffuse>1.0 0.8 0.8 0.7</diffuse>
+            <specular>1.0 1.0 1.0 0.5</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="alcohol_container_2">
+      <static>true</static>
+      <link name="link">
+        <pose>2.5 2.5 0.035 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <cylinder>
+              <radius>0.035</radius>
+              <length>0.07</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>0.035</radius>
+              <length>0.07</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>1.0 0.8 0.8 0.7</ambient>
+            <diffuse>1.0 0.8 0.8 0.7</diffuse>
+            <specular>1.0 1.0 1.0 0.5</specular>
           </material>
         </visual>
       </link>
     </model>
     
-    <!-- Second alcohol container -->
-    <model name="alcohol_container_2">
+    <!-- True exit with magnets -->
+    <model name="true_exit_magnet_1">
       <static>true</static>
       <link name="link">
-        <pose>-1.075 2.15 0.035 0 0 0</pose>
-        <collision name="collision">
-          <geometry>
-            <cylinder>
-              <radius>0.035</radius>
-              <length>0.07</length>
-            </cylinder>
-          </geometry>
-        </collision>
+        <pose>2.4 2.99 0.05 0 0 0</pose>
         <visual name="visual">
           <geometry>
             <cylinder>
-              <radius>0.035</radius>
-              <length>0.07</length>
+              <radius>0.02</radius>
+              <length>0.1</length>
             </cylinder>
           </geometry>
           <material>
-            <ambient>1.0 0.8 0.8 0.7</ambient>
-            <diffuse>1.0 0.8 0.8 0.7</diffuse>
+            <ambient>0.5 0.5 0.5 1</ambient>
+            <diffuse>0.5 0.5 0.5 1</diffuse>
+          </material>
+        </visual>
+        <!-- Adding a magnetic field effect -->
+        <sensor name="magnet1" type="magnetometer">
+          <always_on>1</always_on>
+          <update_rate>30</update_rate>
+          <magnetometer>
+            <x>
+              <noise type="gaussian">
+                <mean>5.0</mean>
+                <stddev>0.1</stddev>
+              </noise>
+            </x>
+          </magnetometer>
+        </sensor>
+      </link>
+    </model>
+
+    <model name="true_exit_magnet_2">
+      <static>true</static>
+      <link name="link">
+        <pose>2.6 2.99 0.05 0 0 0</pose>
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>0.02</radius>
+              <length>0.1</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.5 0.5 0.5 1</ambient>
+            <diffuse>0.5 0.5 0.5 1</diffuse>
+          </material>
+        </visual>
+        <!-- Adding a magnetic field effect -->
+        <sensor name="magnet2" type="magnetometer">
+          <always_on>1</always_on>
+          <update_rate>30</update_rate>
+          <magnetometer>
+            <x>
+              <noise type="gaussian">
+                <mean>5.0</mean>
+                <stddev>0.1</stddev>
+              </noise>
+            </x>
+          </magnetometer>
+        </sensor>
+      </link>
+    </model>
+    
+    <!-- Starting point marker (subtle green circle) -->
+    <model name="start_point">
+      <static>true</static>
+      <pose>0 0 0.001 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <transparency>0.8</transparency>
+          <geometry>
+            <cylinder>
+              <radius>0.1</radius>
+              <length>0.002</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.0 1.0 0.0 0.2</ambient>
+            <diffuse>0.0 1.0 0.0 0.2</diffuse>
           </material>
         </visual>
       </link>

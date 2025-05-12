@@ -6,16 +6,39 @@
   <xacro:property name="chassis_height" value="0.05"/>
   <xacro:property name="wheel_radius" value="0.035"/>
   <xacro:property name="wheel_width" value="0.02"/>
+  <xacro:property name="wheel_mass" value="0.1"/>
+  <xacro:property name="chassis_mass" value="1.0"/>
   
-  <!-- Base Link -->
+  <!-- Material definitions for visualization -->
+  <material name="black">
+    <color rgba="0.1 0.1 0.1 1.0"/>
+  </material>
+  <material name="gray">
+    <color rgba="0.5 0.5 0.5 1.0"/>
+  </material>
+  <material name="blue">
+    <color rgba="0.0 0.0 0.8 1.0"/>
+  </material>
+  <material name="red">
+    <color rgba="0.8 0.0 0.0 1.0"/>
+  </material>
+  <material name="green">
+    <color rgba="0.0 0.8 0.0 1.0"/>
+  </material>
+  <material name="orange">
+    <color rgba="1.0 0.5 0.0 1.0"/>
+  </material>
+  <material name="white">
+    <color rgba="1.0 1.0 1.0 1.0"/>
+  </material>
+
+  <!-- Base Link (Chassis) -->
   <link name="base_link">
     <visual>
       <geometry>
         <box size="${chassis_length} ${chassis_width} ${chassis_height}"/>
       </geometry>
-      <material name="black">
-        <color rgba="0.1 0.1 0.1 1.0"/>
-      </material>
+      <material name="black"/>
     </visual>
     <collision>
       <geometry>
@@ -23,20 +46,24 @@
       </geometry>
     </collision>
     <inertial>
-      <mass value="1.0"/>
-      <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01"/>
+      <mass value="${chassis_mass}"/>
+      <inertia 
+        ixx="${chassis_mass * (chassis_width*chassis_width + chassis_height*chassis_height) / 12.0}" 
+        ixy="0.0" 
+        ixz="0.0" 
+        iyy="${chassis_mass * (chassis_length*chassis_length + chassis_height*chassis_height) / 12.0}" 
+        iyz="0.0" 
+        izz="${chassis_mass * (chassis_length*chassis_length + chassis_width*chassis_width) / 12.0}"/>
     </inertial>
   </link>
 
-  <!-- Front left wheel -->
+  <!-- Front Left Wheel -->
   <link name="front_left_wheel">
     <visual>
       <geometry>
         <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
       </geometry>
-      <material name="gray">
-        <color rgba="0.5 0.5 0.5 1.0"/>
-      </material>
+      <material name="gray"/>
     </visual>
     <collision>
       <geometry>
@@ -44,8 +71,14 @@
       </geometry>
     </collision>
     <inertial>
-      <mass value="0.1"/>
-      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+      <mass value="${wheel_mass}"/>
+      <inertia 
+        ixx="${wheel_mass * (3*wheel_radius*wheel_radius + wheel_width*wheel_width) / 12.0}" 
+        ixy="0.0" 
+        ixz="0.0" 
+        iyy="${wheel_mass * (3*wheel_radius*wheel_radius + wheel_width*wheel_width) / 12.0}" 
+        iyz="0.0" 
+        izz="${wheel_mass * wheel_radius*wheel_radius / 2.0}"/>
     </inertial>
   </link>
   
@@ -56,15 +89,13 @@
     <axis xyz="0 0 1"/>
   </joint>
 
-  <!-- Front right wheel -->
+  <!-- Front Right Wheel -->
   <link name="front_right_wheel">
     <visual>
       <geometry>
         <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
       </geometry>
-      <material name="gray">
-        <color rgba="0.5 0.5 0.5 1.0"/>
-      </material>
+      <material name="gray"/>
     </visual>
     <collision>
       <geometry>
@@ -72,8 +103,14 @@
       </geometry>
     </collision>
     <inertial>
-      <mass value="0.1"/>
-      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+      <mass value="${wheel_mass}"/>
+      <inertia 
+        ixx="${wheel_mass * (3*wheel_radius*wheel_radius + wheel_width*wheel_width) / 12.0}" 
+        ixy="0.0" 
+        ixz="0.0" 
+        iyy="${wheel_mass * (3*wheel_radius*wheel_radius + wheel_width*wheel_width) / 12.0}" 
+        iyz="0.0" 
+        izz="${wheel_mass * wheel_radius*wheel_radius / 2.0}"/>
     </inertial>
   </link>
   
@@ -83,4 +120,412 @@
     <origin xyz="${chassis_length/4} ${-chassis_width/2-wheel_width/2} 0" rpy="${pi/2} 0 0"/>
     <axis xyz="0 0 1"/>
   </joint>
+
+  <!-- Rear Left Wheel -->
+  <link name="rear_left_wheel">
+    <visual>
+      <geometry>
+        <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+      </geometry>
+      <material name="gray"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="${wheel_mass}"/>
+      <inertia 
+        ixx="${wheel_mass * (3*wheel_radius*wheel_radius + wheel_width*wheel_width) / 12.0}" 
+        ixy="0.0" 
+        ixz="0.0" 
+        iyy="${wheel_mass * (3*wheel_radius*wheel_radius + wheel_width*wheel_width) / 12.0}" 
+        iyz="0.0" 
+        izz="${wheel_mass * wheel_radius*wheel_radius / 2.0}"/>
+    </inertial>
+  </link>
+  
+  <joint name="rear_left_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="rear_left_wheel"/>
+    <origin xyz="${-chassis_length/4} ${chassis_width/2+wheel_width/2} 0" rpy="${pi/2} 0 0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <!-- Rear Right Wheel -->
+  <link name="rear_right_wheel">
+    <visual>
+      <geometry>
+        <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+      </geometry>
+      <material name="gray"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="${wheel_mass}"/>
+      <inertia 
+        ixx="${wheel_mass * (3*wheel_radius*wheel_radius + wheel_width*wheel_width) / 12.0}" 
+        ixy="0.0" 
+        ixz="0.0" 
+        iyy="${wheel_mass * (3*wheel_radius*wheel_radius + wheel_width*wheel_width) / 12.0}" 
+        iyz="0.0" 
+        izz="${wheel_mass * wheel_radius*wheel_radius / 2.0}"/>
+    </inertial>
+  </link>
+  
+  <joint name="rear_right_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="rear_right_wheel"/>
+    <origin xyz="${-chassis_length/4} ${-chassis_width/2-wheel_width/2} 0" rpy="${pi/2} 0 0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <!-- Ultrasonic sensor (HC-SR04) -->
+  <link name="ultrasonic_sensor">
+    <visual>
+      <geometry>
+        <box size="0.02 0.04 0.02"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.02 0.04 0.02"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.01"/>
+      <inertia ixx="0.000001" ixy="0.0" ixz="0.0" iyy="0.000001" iyz="0.0" izz="0.000001"/>
+    </inertial>
+  </link>
+
+  <joint name="ultrasonic_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="ultrasonic_sensor"/>
+    <origin xyz="${chassis_length/2 + 0.01} 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Linear Hall Magnetic Sensor -->
+  <link name="magnetic_sensor">
+    <visual>
+      <geometry>
+        <box size="0.01 0.01 0.01"/>
+      </geometry>
+      <material name="red"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.01 0.01 0.01"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.005"/>
+      <inertia ixx="0.0000001" ixy="0.0" ixz="0.0" iyy="0.0000001" iyz="0.0" izz="0.0000001"/>
+    </inertial>
+  </link>
+
+  <joint name="magnetic_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="magnetic_sensor"/>
+    <origin xyz="${chassis_length/2} 0 -${chassis_height/2 + 0.005}" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Vibration Sensor 1 (SW-420) -->
+  <link name="vibration_sensor1">
+    <visual>
+      <geometry>
+        <box size="0.015 0.015 0.01"/>
+      </geometry>
+      <material name="green"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.015 0.015 0.01"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.005"/>
+      <inertia ixx="0.0000001" ixy="0.0" ixz="0.0" iyy="0.0000001" iyz="0.0" izz="0.0000001"/>
+    </inertial>
+  </link>
+
+  <joint name="vibration1_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="vibration_sensor1"/>
+    <origin xyz="${chassis_length/4} ${chassis_width/2-0.01} -${chassis_height/2 + 0.005}" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Vibration Sensor 2 (SW-420) -->
+  <link name="vibration_sensor2">
+    <visual>
+      <geometry>
+        <box size="0.015 0.015 0.01"/>
+      </geometry>
+      <material name="green"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.015 0.015 0.01"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.005"/>
+      <inertia ixx="0.0000001" ixy="0.0" ixz="0.0" iyy="0.0000001" iyz="0.0" izz="0.0000001"/>
+    </inertial>
+  </link>
+
+  <joint name="vibration2_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="vibration_sensor2"/>
+    <origin xyz="${-chassis_length/4} ${chassis_width/2-0.01} -${chassis_height/2 + 0.005}" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Alcohol Sensor (MQ-3) -->
+  <link name="alcohol_sensor">
+    <visual>
+      <geometry>
+        <cylinder radius="0.01" length="0.02"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.01" length="0.02"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.01"/>
+      <inertia ixx="0.0000001" ixy="0.0" ixz="0.0" iyy="0.0000001" iyz="0.0" izz="0.0000001"/>
+    </inertial>
+  </link>
+
+  <joint name="alcohol_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="alcohol_sensor"/>
+    <origin xyz="${chassis_length/2-0.02} 0 ${chassis_height/2 + 0.01}" rpy="0 0 0"/>
+  </joint>
+
+  <!-- LED -->
+  <link name="led">
+    <visual>
+      <geometry>
+        <sphere radius="0.005"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+    <collision>
+      <geometry>
+        <sphere radius="0.005"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.001"/>
+      <inertia ixx="0.00000001" ixy="0.0" ixz="0.0" iyy="0.00000001" iyz="0.0" izz="0.00000001"/>
+    </inertial>
+  </link>
+
+  <joint name="led_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="led"/>
+    <origin xyz="0 0 ${chassis_height/2 + 0.005}" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Buzzer -->
+  <link name="buzzer">
+    <visual>
+      <geometry>
+        <cylinder radius="0.008" length="0.005"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.008" length="0.005"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.002"/>
+      <inertia ixx="0.00000001" ixy="0.0" ixz="0.0" iyy="0.00000001" iyz="0.0" izz="0.00000001"/>
+    </inertial>
+  </link>
+
+  <joint name="buzzer_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="buzzer"/>
+    <origin xyz="${-chassis_length/4} 0 ${chassis_height/2 + 0.0025}" rpy="0 0 0"/>
+  </joint>
+
+  <!-- ================ GAZEBO PLUGINS ================ -->
+  
+  <!-- Differential drive controller for wheel movement -->
+  <gazebo>
+    <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
+      <update_rate>30</update_rate>
+      <left_joint>front_left_wheel_joint</left_joint>
+      <right_joint>front_right_wheel_joint</right_joint>
+      <left_joint>rear_left_wheel_joint</left_joint>
+      <right_joint>rear_right_wheel_joint</right_joint>
+      <wheel_separation>${chassis_width + wheel_width}</wheel_separation>
+      <wheel_diameter>${2 * wheel_radius}</wheel_diameter>
+      <max_wheel_torque>20</max_wheel_torque>
+      <max_wheel_acceleration>1.0</max_wheel_acceleration>
+      <command_topic>cmd_vel</command_topic>
+      <publish_odom>true</publish_odom>
+      <publish_odom_tf>true</publish_odom_tf>
+      <odometry_topic>odom</odometry_topic>
+      <odometry_frame>odom</odometry_frame>
+      <robot_base_frame>base_link</robot_base_frame>
+    </plugin>
+  </gazebo>
+
+  <!-- Ultrasonic sensor plugin -->
+  <gazebo reference="ultrasonic_sensor">
+    <sensor type="ray" name="ultrasonic">
+      <pose>0 0 0 0 0 0</pose>
+      <visualize>true</visualize>
+      <update_rate>10</update_rate>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>5</samples>
+            <resolution>1</resolution>
+            <min_angle>-0.15</min_angle>
+            <max_angle>0.15</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.02</min>
+          <max>4.0</max>
+          <resolution>0.01</resolution>
+        </range>
+      </ray>
+      <plugin name="ultrasonic_controller" filename="libgazebo_ros_ray_sensor.so">
+        <ros>
+          <namespace>/</namespace>
+          <remapping>~/out:=ultrasonic_sensor</remapping>
+        </ros>
+        <output_type>sensor_msgs/Range</output_type>
+        <radiation_type>ultrasound</radiation_type>
+        <frame_name>ultrasonic_sensor</frame_name>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <!-- Magnetic sensor plugin -->
+  <gazebo reference="magnetic_sensor">
+    <sensor type="magnetometer" name="magnetic_sensor">
+      <always_on>1</always_on>
+      <update_rate>10</update_rate>
+      <plugin name="magnetic_plugin" filename="libgazebo_ros_magnetometer.so">
+        <ros>
+          <namespace>/</namespace>
+          <remapping>~/out:=magnetic_sensor</remapping>
+        </ros>
+        <body_name>magnetic_sensor</body_name>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <!-- Vibration sensor 1 plugin -->
+  <gazebo reference="vibration_sensor1">
+    <sensor type="contact" name="vibration_contact1">
+      <update_rate>20</update_rate>
+      <contact>
+        <collision>vibration_sensor1_collision</collision>
+      </contact>
+      <plugin name="vibration_plugin1" filename="libgazebo_ros_bumper.so">
+        <ros>
+          <namespace>/</namespace>
+          <remapping>~/bumper_states:=vibration_sensor1</remapping>
+        </ros>
+        <frame_name>vibration_sensor1</frame_name>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <!-- Vibration sensor 2 plugin -->
+  <gazebo reference="vibration_sensor2">
+    <sensor type="contact" name="vibration_contact2">
+      <update_rate>20</update_rate>
+      <contact>
+        <collision>vibration_sensor2_collision</collision>
+      </contact>
+      <plugin name="vibration_plugin2" filename="libgazebo_ros_bumper.so">
+        <ros>
+          <namespace>/</namespace>
+          <remapping>~/bumper_states:=vibration_sensor2</remapping>
+        </ros>
+        <frame_name>vibration_sensor2</frame_name>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <!-- Alcohol sensor plugin -->
+  <!-- This is trickier to simulate realistically; using a proximity sensor as approximation -->
+  <gazebo reference="alcohol_sensor">
+    <sensor type="logical_camera" name="alcohol_detector">
+      <update_rate>10</update_rate>
+      <logical_camera>
+        <near>0.01</near>
+        <far>0.2</far>
+        <horizontal_fov>0.5</horizontal_fov>
+        <aspect_ratio>1.0</aspect_ratio>
+      </logical_camera>
+      <plugin name="alcohol_plugin" filename="libgazebo_ros_logical_camera.so">
+        <ros>
+          <namespace>/</namespace>
+          <remapping>~/out:=alcohol_camera</remapping>
+        </ros>
+        <frame_name>alcohol_sensor</frame_name>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <!-- LED plugin -->
+  <gazebo reference="led">
+    <material>Gazebo/White</material>
+    <turnGravityOff>true</turnGravityOff>
+    <selfCollide>false</selfCollide>
+  </gazebo>
+
+  <!-- Buzzer plugin -->
+  <gazebo reference="buzzer">
+    <material>Gazebo/Black</material>
+    <turnGravityOff>true</turnGravityOff>
+    <selfCollide>false</selfCollide>
+  </gazebo>
+
+  <!-- Additional Gazebo-specific properties for all links -->
+  <gazebo reference="base_link">
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+  <gazebo reference="front_left_wheel">
+    <material>Gazebo/Grey</material>
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2>
+  </gazebo>
+
+  <gazebo reference="front_right_wheel">
+    <material>Gazebo/Grey</material>
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2>
+  </gazebo>
+
+  <gazebo reference="rear_left_wheel">
+    <material>Gazebo/Grey</material>
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2>
+  </gazebo>
+
+  <gazebo reference="rear_right_wheel">
+    <material>Gazebo/Grey</material>
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2>
+  </gazebo>
 </robot>
