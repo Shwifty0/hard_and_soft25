@@ -1,0 +1,21 @@
+[0.928s] Invoking command in '/home/shwifty/SOSE25/hard_soft/robocar_ws/build/robocar_simulation': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/shwifty/SOSE25/hard_soft/robocar_ws/build/robocar_simulation/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/shwifty/SOSE25/hard_soft/robocar_ws/install/robocar_simulation/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/shwifty/SOSE25/hard_soft/robocar_ws/build/robocar_simulation/build --no-deps symlink_data
+[1.296s] running develop
+[1.547s] running egg_info
+[1.570s] writing robocar_simulation.egg-info/PKG-INFO
+[1.570s] writing dependency_links to robocar_simulation.egg-info/dependency_links.txt
+[1.570s] writing entry points to robocar_simulation.egg-info/entry_points.txt
+[1.570s] writing requirements to robocar_simulation.egg-info/requires.txt
+[1.570s] writing top-level names to robocar_simulation.egg-info/top_level.txt
+[1.618s] reading manifest file 'robocar_simulation.egg-info/SOURCES.txt'
+[1.619s] writing manifest file 'robocar_simulation.egg-info/SOURCES.txt'
+[1.645s] running build_ext
+[1.645s] Creating /home/shwifty/SOSE25/hard_soft/robocar_ws/install/robocar_simulation/lib/python3.12/site-packages/robocar-simulation.egg-link (link to .)
+[1.646s] Installing controller_node script to /home/shwifty/SOSE25/hard_soft/robocar_ws/install/robocar_simulation/lib/robocar_simulation
+[1.646s] Installing keyboard_control script to /home/shwifty/SOSE25/hard_soft/robocar_ws/install/robocar_simulation/lib/robocar_simulation
+[1.646s] Installing logger_node script to /home/shwifty/SOSE25/hard_soft/robocar_ws/install/robocar_simulation/lib/robocar_simulation
+[1.646s] Installing sensor_node script to /home/shwifty/SOSE25/hard_soft/robocar_ws/install/robocar_simulation/lib/robocar_simulation
+[1.646s] 
+[1.646s] Installed /home/shwifty/SOSE25/hard_soft/robocar_ws/build/robocar_simulation
+[1.647s] running symlink_data
+[1.647s] error: can't copy '/home/shwifty/SOSE25/hard_soft/robocar_ws/build/robocar_simulation/worlds/maze.sdf': doesn't exist or not a regular file
+[1.678s] Invoked command in '/home/shwifty/SOSE25/hard_soft/robocar_ws/build/robocar_simulation' returned '1': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/shwifty/SOSE25/hard_soft/robocar_ws/build/robocar_simulation/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/shwifty/SOSE25/hard_soft/robocar_ws/install/robocar_simulation/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/shwifty/SOSE25/hard_soft/robocar_ws/build/robocar_simulation/build --no-deps symlink_data

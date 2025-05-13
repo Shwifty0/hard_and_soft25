@@ -1,0 +1,5 @@
+[console_scripts]
+controller_node = robocar_simulation.controller_node:main
+keyboard_control = robocar_simulation.keyboard_control:main
+logger_node = robocar_simulation.logger_node:main
+sensor_node = robocar_simulation.sensor_node:main

@@ -18,9 +18,9 @@ setup(
         # Include URDF files
         (os.path.join('share', package_name, 'urdf'),
             glob('urdf/*')),
-        # Include world files
+        # Include world files - explicit list instead of glob to avoid issues
         (os.path.join('share', package_name, 'worlds'),
-            glob('worlds/*')),
+            ['worlds/maze.sdf']),
         # Include config files
         (os.path.join('share', package_name, 'config'),
             glob('config/*')),
@@ -37,6 +37,7 @@ setup(
             'sensor_node = robocar_simulation.sensor_node:main',
             'controller_node = robocar_simulation.controller_node:main',
             'logger_node = robocar_simulation.logger_node:main',
+            'keyboard_control = robocar_simulation.keyboard_control:main',
         ],
     },
 )
