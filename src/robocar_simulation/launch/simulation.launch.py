@@ -33,17 +33,20 @@ def generate_launch_description():
         executable='create',
         arguments=[
             '-name', 'robocar',
-            '-topic', 'robot_description'
+            '-topic', 'robot_description',
+            '-x', '1.0',
+            '-y', '0.1',
+            '-z', '0.05',
         ],
         output='screen'
     )
     
     # Bridge to connect ROS2 topics with Gazebo
-    # This bridges cmd_vel from ROS2 to Gazebo
+    # This bridges cmd_vel from ROS2 to Gazebo (modified to match keyboard_control's topic)
     bridge_cmd_vel = Node(
         package='ros_gz_bridge',
         executable='parameter_bridge',
-        arguments=['/cmd_vel@geometry_msgs/msg/Twist@ignition.msgs.Twist'],
+        arguments=['cmd_vel@geometry_msgs/msg/Twist@ignition.msgs.Twist'],
         output='screen'
     )
     
@@ -51,7 +54,7 @@ def generate_launch_description():
     bridge_joint_states = Node(
         package='ros_gz_bridge',
         executable='parameter_bridge',
-        arguments=['/joint_states@sensor_msgs/msg/JointState@ignition.msgs.Model'],
+        arguments=['joint_states@sensor_msgs/msg/JointState@ignition.msgs.Model'],
         output='screen'
     )
     

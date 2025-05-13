@@ -12,9 +12,10 @@ def generate_launch_description():
     urdf_file = os.path.join(pkg_share, 'urdf', 'robocar.urdf.xacro')
     robot_description = xacro.process_file(urdf_file).toxml()
     
-    # Launch Gazebo with the maze
+    # Launch Gazebo with empty world (classic Gazebo instead of Ignition)
     gazebo = ExecuteProcess(
-        cmd=['gz', 'sim', '-r', os.path.join(pkg_share, 'worlds', 'maze.sdf')],
+        cmd=['gazebo', '--verbose', '-s', 'libgazebo_ros_init.so', '-s', 'libgazebo_ros_factory.so',
+             os.path.join(pkg_share, 'worlds', 'maze.sdf')],
         output='screen'
     )
     
@@ -27,34 +28,17 @@ def generate_launch_description():
         parameters=[{'robot_description': robot_description}]
     )
     
-    # Spawn robot in Gazebo using ros_gz_sim
+    # Spawn robot in Gazebo
     spawn_entity = Node(
-        package='ros_gz_sim',
-        executable='create',
+        package='gazebo_ros',
+        executable='spawn_entity.py',
         arguments=[
-            '-name', 'robocar',
             '-topic', 'robot_description',
+            '-entity', 'robocar',
             '-x', '1.0',
             '-y', '0.1',
             '-z', '0.05',
         ],
-        output='screen'
-    )
-    
-    # Bridge to connect ROS2 topics with Gazebo
-    # This bridges cmd_vel from ROS2 to Gazebo (modified to match keyboard_control's topic)
-    bridge_cmd_vel = Node(
-        package='ros_gz_bridge',
-        executable='parameter_bridge',
-        arguments=['cmd_vel@geometry_msgs/msg/Twist@ignition.msgs.Twist'],
-        output='screen'
-    )
-    
-    # This bridges joint states from Gazebo to ROS2
-    bridge_joint_states = Node(
-        package='ros_gz_bridge',
-        executable='parameter_bridge',
-        arguments=['joint_states@sensor_msgs/msg/JointState@ignition.msgs.Model'],
         output='screen'
     )
     
@@ -73,12 +57,18 @@ def generate_launch_description():
         output='screen'
     )
     
+    command_monitor = Node(
+        package='robocar_simulation',
+        executable='command_monitor',
+        name='command_monitor',
+        output='screen'
+    )
+    
     return LaunchDescription([
         gazebo,
         robot_state_publisher,
         spawn_entity,
-        bridge_cmd_vel,
-        bridge_joint_states,
         sensor_node,
         logger_node,
+        command_monitor
     ])

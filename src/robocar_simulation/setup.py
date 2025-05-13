@@ -38,6 +38,11 @@ setup(
             'controller_node = robocar_simulation.controller_node:main',
             'logger_node = robocar_simulation.logger_node:main',
             'keyboard_control = robocar_simulation.keyboard_control:main',
+            'command_monitor = robocar_simulation.command_monitor:main',
+            'test_velocity = robocar_simulation.test_velocity_publisher:main',
+            'simple_keyboard = robocar_simulation.simple_keyboard_controller:main',
+            'direct_velocity_test = robocar_simulation.direct_velocity_test:main',
+            'harmonium_velocity_test = robocar_simulation.harmonium_velocity_test:main',
         ],
     },
 )

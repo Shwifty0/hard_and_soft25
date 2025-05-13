@@ -8,15 +8,15 @@ import xacro
 def generate_launch_description():
     pkg_share = get_package_share_directory('robocar_simulation')
     
-    # Process XACRO file to get URDF
-    urdf_file = os.path.join(pkg_share, 'urdf', 'robocar.urdf.xacro')
-    robot_description = xacro.process_file(urdf_file).toxml()
-    
-    # Launch Gazebo with the maze
+    # Launch Gazebo Harmonium
     gazebo = ExecuteProcess(
         cmd=['gz', 'sim', '-r', os.path.join(pkg_share, 'worlds', 'maze.sdf')],
         output='screen'
     )
+    
+    # Process XACRO file to get URDF
+    urdf_file = os.path.join(pkg_share, 'urdf', 'robocar.urdf.xacro')
+    robot_description = xacro.process_file(urdf_file).toxml()
     
     # Publish robot description
     robot_state_publisher = Node(
@@ -41,20 +41,29 @@ def generate_launch_description():
         output='screen'
     )
     
-    # Bridge to connect ROS2 topics with Gazebo
-    # This bridges cmd_vel from ROS2 to Gazebo (modified to match keyboard_control's topic)
-    bridge_cmd_vel = Node(
+    # IMPORTANT: For Gazebo Harmonium/Garden in ROS 2 Jazzy, we need to use specific bridge configurations
+    # This bridges from ROS 2 cmd_vel to Gazebo's model-specific topic
+    bridge_ros_to_gz = Node(
         package='ros_gz_bridge',
         executable='parameter_bridge',
-        arguments=['cmd_vel@geometry_msgs/msg/Twist@ignition.msgs.Twist'],
+        name='bridge_ros_to_gz',
+        arguments=[
+            # From ROS 2 cmd_vel to Gazebo model/robocar/cmd_vel
+            'cmd_vel@geometry_msgs/msg/Twist]gz.msgs.Twist@/model/robocar/cmd_vel',
+        ],
         output='screen'
     )
     
-    # This bridges joint states from Gazebo to ROS2
-    bridge_joint_states = Node(
+    # This bridges from Gazebo to ROS 2 for sensor data and other feedback
+    bridge_gz_to_ros = Node(
         package='ros_gz_bridge',
         executable='parameter_bridge',
-        arguments=['joint_states@sensor_msgs/msg/JointState@ignition.msgs.Model'],
+        name='bridge_gz_to_ros',
+        arguments=[
+            # From Gazebo to ROS 2 for joint states and other feedback
+            '/model/robocar/joint_state@sensor_msgs/msg/JointState[gz.msgs.Model',
+            '/world/maze/model/robocar/pose@geometry_msgs/msg/Pose[gz.msgs.Pose',
+        ],
         output='screen'
     )
     
@@ -73,12 +82,20 @@ def generate_launch_description():
         output='screen'
     )
     
+    command_monitor = Node(
+        package='robocar_simulation',
+        executable='command_monitor',
+        name='command_monitor',
+        output='screen'
+    )
+    
     return LaunchDescription([
         gazebo,
         robot_state_publisher,
         spawn_entity,
-        bridge_cmd_vel,
-        bridge_joint_states,
+        bridge_ros_to_gz,
+        bridge_gz_to_ros,
         sensor_node,
         logger_node,
+        command_monitor
     ])

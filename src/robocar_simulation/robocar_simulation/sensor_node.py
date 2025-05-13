@@ -3,6 +3,7 @@ import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Range
 from std_msgs.msg import Float32, Bool
+from geometry_msgs.msg import Twist  # Move import to the top
 import time
 import math
 import random
@@ -145,8 +146,6 @@ class SensorNode(Node):
         alcohol_msg.data = self.alcohol_level
         self.alcohol_pub.publish(alcohol_msg)
 
-
-from geometry_msgs.msg import Twist
 
 def main(args=None):
     rclpy.init(args=args)
