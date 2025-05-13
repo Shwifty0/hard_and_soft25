@@ -1,0 +1,36 @@
+running develop
+running egg_info
+creating robocar_simulation.egg-info
+writing robocar_simulation.egg-info/PKG-INFO
+writing dependency_links to robocar_simulation.egg-info/dependency_links.txt
+writing entry points to robocar_simulation.egg-info/entry_points.txt
+writing requirements to robocar_simulation.egg-info/requires.txt
+writing top-level names to robocar_simulation.egg-info/top_level.txt
+writing manifest file 'robocar_simulation.egg-info/SOURCES.txt'
+reading manifest file 'robocar_simulation.egg-info/SOURCES.txt'
+writing manifest file 'robocar_simulation.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/shwifty/SOSE25/hard_soft/robocar_ws/src/install/robocar_simulation/lib/python3.12/site-packages/robocar-simulation.egg-link (link to .)
+Installing command_monitor script to /home/shwifty/SOSE25/hard_soft/robocar_ws/src/install/robocar_simulation/lib/robocar_simulation
+Installing controller_node script to /home/shwifty/SOSE25/hard_soft/robocar_ws/src/install/robocar_simulation/lib/robocar_simulation
+Installing harmonium_velocity_test script to /home/shwifty/SOSE25/hard_soft/robocar_ws/src/install/robocar_simulation/lib/robocar_simulation
+Installing keyboard_control script to /home/shwifty/SOSE25/hard_soft/robocar_ws/src/install/robocar_simulation/lib/robocar_simulation
+Installing logger_node script to /home/shwifty/SOSE25/hard_soft/robocar_ws/src/install/robocar_simulation/lib/robocar_simulation
+Installing robocar_test script to /home/shwifty/SOSE25/hard_soft/robocar_ws/src/install/robocar_simulation/lib/robocar_simulation
+Installing sensor_node script to /home/shwifty/SOSE25/hard_soft/robocar_ws/src/install/robocar_simulation/lib/robocar_simulation
+Installing simple_keyboard script to /home/shwifty/SOSE25/hard_soft/robocar_ws/src/install/robocar_simulation/lib/robocar_simulation
+Installing test_velocity script to /home/shwifty/SOSE25/hard_soft/robocar_ws/src/install/robocar_simulation/lib/robocar_simulation
+
+Installed /home/shwifty/SOSE25/hard_soft/robocar_ws/src/build/robocar_simulation
+running symlink_data
+creating /home/shwifty/SOSE25/hard_soft/robocar_ws/src/install/robocar_simulation/share/ament_index
+creating /home/shwifty/SOSE25/hard_soft/robocar_ws/src/install/robocar_simulation/share/ament_index/resource_index
+creating /home/shwifty/SOSE25/hard_soft/robocar_ws/src/install/robocar_simulation/share/ament_index/resource_index/packages
+symbolically linking /home/shwifty/SOSE25/hard_soft/robocar_ws/src/build/robocar_simulation/resource/robocar_simulation -> /home/shwifty/SOSE25/hard_soft/robocar_ws/src/install/robocar_simulation/share/ament_index/resource_index/packages
+symbolically linking /home/shwifty/SOSE25/hard_soft/robocar_ws/src/build/robocar_simulation/package.xml -> /home/shwifty/SOSE25/hard_soft/robocar_ws/src/install/robocar_simulation/share/robocar_simulation
+creating /home/shwifty/SOSE25/hard_soft/robocar_ws/src/install/robocar_simulation/share/robocar_simulation/launch
+symbolically linking /home/shwifty/SOSE25/hard_soft/robocar_ws/src/build/robocar_simulation/launch/jazzy_harmonium.launch.py -> /home/shwifty/SOSE25/hard_soft/robocar_ws/src/install/robocar_simulation/share/robocar_simulation/launch
+creating /home/shwifty/SOSE25/hard_soft/robocar_ws/src/install/robocar_simulation/share/robocar_simulation/urdf
+symbolically linking /home/shwifty/SOSE25/hard_soft/robocar_ws/src/build/robocar_simulation/urdf/robocar.urdf.xacro -> /home/shwifty/SOSE25/hard_soft/robocar_ws/src/install/robocar_simulation/share/robocar_simulation/urdf
+creating /home/shwifty/SOSE25/hard_soft/robocar_ws/src/install/robocar_simulation/share/robocar_simulation/worlds
+symbolically linking /home/shwifty/SOSE25/hard_soft/robocar_ws/src/build/robocar_simulation/worlds/maze.sdf -> /home/shwifty/SOSE25/hard_soft/robocar_ws/src/install/robocar_simulation/share/robocar_simulation/worlds

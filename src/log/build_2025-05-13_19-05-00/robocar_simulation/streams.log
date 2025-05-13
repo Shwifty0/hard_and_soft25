@@ -1,0 +1,38 @@
+[1.170s] Invoking command in '/home/shwifty/SOSE25/hard_soft/robocar_ws/src/build/robocar_simulation': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/shwifty/SOSE25/hard_soft/robocar_ws/src/build/robocar_simulation/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/shwifty/SOSE25/hard_soft/robocar_ws/src/install/robocar_simulation/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/shwifty/SOSE25/hard_soft/robocar_ws/src/build/robocar_simulation/build --no-deps symlink_data
+[1.545s] running develop
+[1.788s] running egg_info
+[1.788s] creating robocar_simulation.egg-info
+[1.811s] writing robocar_simulation.egg-info/PKG-INFO
+[1.811s] writing dependency_links to robocar_simulation.egg-info/dependency_links.txt
+[1.812s] writing entry points to robocar_simulation.egg-info/entry_points.txt
+[1.812s] writing requirements to robocar_simulation.egg-info/requires.txt
+[1.812s] writing top-level names to robocar_simulation.egg-info/top_level.txt
+[1.813s] writing manifest file 'robocar_simulation.egg-info/SOURCES.txt'
+[1.861s] reading manifest file 'robocar_simulation.egg-info/SOURCES.txt'
+[1.861s] writing manifest file 'robocar_simulation.egg-info/SOURCES.txt'
+[1.885s] running build_ext
+[1.885s] Creating /home/shwifty/SOSE25/hard_soft/robocar_ws/src/install/robocar_simulation/lib/python3.12/site-packages/robocar-simulation.egg-link (link to .)
+[1.886s] Installing command_monitor script to /home/shwifty/SOSE25/hard_soft/robocar_ws/src/install/robocar_simulation/lib/robocar_simulation
+[1.886s] Installing controller_node script to /home/shwifty/SOSE25/hard_soft/robocar_ws/src/install/robocar_simulation/lib/robocar_simulation
+[1.887s] Installing harmonium_velocity_test script to /home/shwifty/SOSE25/hard_soft/robocar_ws/src/install/robocar_simulation/lib/robocar_simulation
+[1.887s] Installing keyboard_control script to /home/shwifty/SOSE25/hard_soft/robocar_ws/src/install/robocar_simulation/lib/robocar_simulation
+[1.887s] Installing logger_node script to /home/shwifty/SOSE25/hard_soft/robocar_ws/src/install/robocar_simulation/lib/robocar_simulation
+[1.887s] Installing robocar_test script to /home/shwifty/SOSE25/hard_soft/robocar_ws/src/install/robocar_simulation/lib/robocar_simulation
+[1.887s] Installing sensor_node script to /home/shwifty/SOSE25/hard_soft/robocar_ws/src/install/robocar_simulation/lib/robocar_simulation
+[1.887s] Installing simple_keyboard script to /home/shwifty/SOSE25/hard_soft/robocar_ws/src/install/robocar_simulation/lib/robocar_simulation
+[1.888s] Installing test_velocity script to /home/shwifty/SOSE25/hard_soft/robocar_ws/src/install/robocar_simulation/lib/robocar_simulation
+[1.888s] 
+[1.888s] Installed /home/shwifty/SOSE25/hard_soft/robocar_ws/src/build/robocar_simulation
+[1.888s] running symlink_data
+[1.888s] creating /home/shwifty/SOSE25/hard_soft/robocar_ws/src/install/robocar_simulation/share/ament_index
+[1.888s] creating /home/shwifty/SOSE25/hard_soft/robocar_ws/src/install/robocar_simulation/share/ament_index/resource_index
+[1.889s] creating /home/shwifty/SOSE25/hard_soft/robocar_ws/src/install/robocar_simulation/share/ament_index/resource_index/packages
+[1.889s] symbolically linking /home/shwifty/SOSE25/hard_soft/robocar_ws/src/build/robocar_simulation/resource/robocar_simulation -> /home/shwifty/SOSE25/hard_soft/robocar_ws/src/install/robocar_simulation/share/ament_index/resource_index/packages
+[1.889s] symbolically linking /home/shwifty/SOSE25/hard_soft/robocar_ws/src/build/robocar_simulation/package.xml -> /home/shwifty/SOSE25/hard_soft/robocar_ws/src/install/robocar_simulation/share/robocar_simulation
+[1.889s] creating /home/shwifty/SOSE25/hard_soft/robocar_ws/src/install/robocar_simulation/share/robocar_simulation/launch
+[1.889s] symbolically linking /home/shwifty/SOSE25/hard_soft/robocar_ws/src/build/robocar_simulation/launch/jazzy_harmonium.launch.py -> /home/shwifty/SOSE25/hard_soft/robocar_ws/src/install/robocar_simulation/share/robocar_simulation/launch
+[1.889s] creating /home/shwifty/SOSE25/hard_soft/robocar_ws/src/install/robocar_simulation/share/robocar_simulation/urdf
+[1.890s] symbolically linking /home/shwifty/SOSE25/hard_soft/robocar_ws/src/build/robocar_simulation/urdf/robocar.urdf.xacro -> /home/shwifty/SOSE25/hard_soft/robocar_ws/src/install/robocar_simulation/share/robocar_simulation/urdf
+[1.890s] creating /home/shwifty/SOSE25/hard_soft/robocar_ws/src/install/robocar_simulation/share/robocar_simulation/worlds
+[1.890s] symbolically linking /home/shwifty/SOSE25/hard_soft/robocar_ws/src/build/robocar_simulation/worlds/maze.sdf -> /home/shwifty/SOSE25/hard_soft/robocar_ws/src/install/robocar_simulation/share/robocar_simulation/worlds
+[1.932s] Invoked command in '/home/shwifty/SOSE25/hard_soft/robocar_ws/src/build/robocar_simulation' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/shwifty/SOSE25/hard_soft/robocar_ws/src/build/robocar_simulation/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/shwifty/SOSE25/hard_soft/robocar_ws/src/install/robocar_simulation/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/shwifty/SOSE25/hard_soft/robocar_ws/src/build/robocar_simulation/build --no-deps symlink_data

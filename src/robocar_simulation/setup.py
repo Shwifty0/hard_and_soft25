@@ -12,18 +12,15 @@ setup(
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
-        # Include launch files
-        (os.path.join('share', package_name, 'launch'),
-            glob('launch/*.launch.py')),
-        # Include URDF files
+        # Include only the jazzy_harmonium.launch.py file
+        (os.path.join('share', package_name, 'launch'), 
+            ['launch/jazzy_harmonium.launch.py']),
+        # URDF files are still needed
         (os.path.join('share', package_name, 'urdf'),
             glob('urdf/*')),
-        # Include world files - explicit list instead of glob to avoid issues
+        # World files are still needed
         (os.path.join('share', package_name, 'worlds'),
             ['worlds/maze.sdf']),
-        # Include config files
-        (os.path.join('share', package_name, 'config'),
-            glob('config/*')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -41,7 +38,6 @@ setup(
             'command_monitor = robocar_simulation.command_monitor:main',
             'test_velocity = robocar_simulation.test_velocity_publisher:main',
             'simple_keyboard = robocar_simulation.simple_keyboard_controller:main',
-            'direct_velocity_test = robocar_simulation.direct_velocity_test:main',
             'harmonium_velocity_test = robocar_simulation.harmonium_velocity_test:main',
             'robocar_test = robocar_simulation.robocar_test:main',
         ],

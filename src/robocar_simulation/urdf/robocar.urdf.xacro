@@ -172,7 +172,7 @@
   
   <!-- Differential drive controller -->
   <gazebo>
-    <plugin filename="gz-sim-diff-drive-system" name="gz::sim::systems::DiffDrive">
+  <plugin filename="gz-sim-diff-drive-system" name="gz::sim::systems::DiffDrive">
       <left_joint>front_left_wheel_joint</left_joint>
       <left_joint>rear_left_wheel_joint</left_joint>
       <right_joint>front_right_wheel_joint</right_joint>
@@ -181,12 +181,11 @@
       <wheel_radius>${wheel_radius}</wheel_radius>
       <odom_publish_frequency>30</odom_publish_frequency>
       <topic>/model/robocar/cmd_vel</topic>
-
-      <!-- Add these parameters for better responsiveness -->
-      <max_linear_acceleration>2.0</max_linear_acceleration>
-      <max_angular_acceleration>4.0</max_angular_acceleration>
-      <max_linear_velocity>0.5</max_linear_velocity>
-      <max_angular_velocity>1.5</max_angular_velocity>
+      <min_velocity>-1.0</min_velocity>
+      <max_linear_acceleration>5.0</max_linear_acceleration>
+      <max_angular_acceleration>5.0</max_angular_acceleration>
+      <max_linear_velocity>1.0</max_linear_velocity>
+      <max_angular_velocity>2.0</max_angular_velocity>
     </plugin>
   </gazebo>
 

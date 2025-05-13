@@ -7,6 +7,8 @@ import sys
 import select
 import tty
 import termios
+import subprocess
+import threading
 
 msg = """
 RoboCar Keyboard Control
@@ -38,12 +40,32 @@ class KeyboardControlNode(Node):
         self.status = 0
         self.get_logger().info('Keyboard control node started')
         print(msg)
+        
+        # Add lock for thread safety when calling Gazebo
+        self.lock = threading.Lock()
 
     def timer_callback(self):
         twist = Twist()
         twist.linear.x = self.x
         twist.angular.z = self.th
         self.publisher.publish(twist)
+        
+        # ADDITION: Also publish directly to Gazebo
+        with self.lock:
+            # Only forward if there's actual movement
+            if self.x != 0.0 or self.th != 0.0:
+                self.send_to_gazebo(self.x, self.th)
+
+    def send_to_gazebo(self, linear_x, angular_z):
+        # Format the Gazebo message
+        gz_msg = f"linear: {{x: {linear_x}, y: 0.0, z: 0.0}}, angular: {{x: 0.0, y: 0.0, z: {angular_z}}}"
+        
+        # Forward to Gazebo
+        try:
+            cmd = ["gz", "topic", "-t", "/model/robocar/cmd_vel", "-m", "gz.msgs.Twist", "-p", gz_msg]
+            subprocess.run(cmd, capture_output=True, text=True)
+        except Exception as e:
+            self.get_logger().error(f"Error forwarding to Gazebo: {e}")
 
     def getKey(self):
         settings = termios.tcgetattr(sys.stdin)
@@ -72,6 +94,8 @@ class KeyboardControlNode(Node):
             # Stop the robot
             twist = Twist()
             self.publisher.publish(twist)
+            # Also stop in Gazebo
+            self.send_to_gazebo(0.0, 0.0)
 
 def main(args=None):
     rclpy.init(args=args)

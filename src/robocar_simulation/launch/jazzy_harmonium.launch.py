@@ -42,26 +42,13 @@ def generate_launch_description():
     )
     
     # Bridge ROS 2 to Gazebo (for cmd_vel)
+    # This is the critical part that needs to match exactly with your working direct command
     bridge_ros_to_gz = Node(
         package='ros_gz_bridge',
         executable='parameter_bridge',
         name='bridge_ros_to_gz',
         arguments=[
-            # Bridge both with and without leading slash for compatibility
             'cmd_vel@geometry_msgs/msg/Twist@gz.msgs.Twist@/model/robocar/cmd_vel',
-            '/cmd_vel@geometry_msgs/msg/Twist@gz.msgs.Twist@/model/robocar/cmd_vel',
-        ],
-        output='screen'
-    )
-    
-    # Bridge Gazebo to ROS 2 (for sensor data)
-    bridge_gz_to_ros = Node(
-        package='ros_gz_bridge',
-        executable='parameter_bridge',
-        name='bridge_gz_to_ros',
-        arguments=[
-            '/model/robocar/joint_state@sensor_msgs/msg/JointState[gz.msgs.Model',
-            '/world/maze/model/robocar/pose@geometry_msgs/msg/Pose[gz.msgs.Pose',
         ],
         output='screen'
     )
@@ -79,6 +66,5 @@ def generate_launch_description():
         robot_state_publisher,
         spawn_entity,
         bridge_ros_to_gz,
-        bridge_gz_to_ros,
         command_monitor
     ])
