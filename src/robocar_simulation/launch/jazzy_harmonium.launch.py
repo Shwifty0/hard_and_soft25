@@ -15,7 +15,7 @@ def generate_launch_description():
     )
     
     # Process XACRO file to get URDF
-    urdf_file = os.path.join(pkg_share, 'urdf', 'robocar_harmonium_basic.urdf.xacro')
+    urdf_file = os.path.join(pkg_share, 'urdf', 'robocar.urdf.xacro')
     robot_description = xacro.process_file(urdf_file).toxml()
     
     # Publish robot description

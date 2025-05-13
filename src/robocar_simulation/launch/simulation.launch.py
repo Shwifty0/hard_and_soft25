@@ -49,7 +49,7 @@ def generate_launch_description():
         executable='parameter_bridge',
         arguments=[
             # ROS to Gazebo bridge (cmd_vel → /model/robocar/cmd_vel)
-            'cmd_vel@geometry_msgs/msg/Twist]gz.msgs.Twist@/model/robocar/cmd_vel',
+            'cmd_vel@geometry_msgs/msg/Twist@gz.msgs.Twist@/model/robocar/cmd_vel',
             # Gazebo to ROS bridge (odom from Gazebo → ROS)
             '/model/robocar/odometry@nav_msgs/msg/Odometry[gz.msgs.Odometry',
         ],
