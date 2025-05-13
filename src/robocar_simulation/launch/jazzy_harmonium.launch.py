@@ -15,7 +15,7 @@ def generate_launch_description():
     )
     
     # Process XACRO file to get URDF
-    urdf_file = os.path.join(pkg_share, 'urdf', 'robocar.urdf.xacro')
+    urdf_file = os.path.join(pkg_share, 'urdf', 'robocar_harmonium_basic.urdf.xacro')
     robot_description = xacro.process_file(urdf_file).toxml()
     
     # Publish robot description
@@ -27,7 +27,7 @@ def generate_launch_description():
         parameters=[{'robot_description': robot_description}]
     )
     
-    # Spawn robot in Gazebo using ros_gz_sim
+    # Spawn robot in Gazebo
     spawn_entity = Node(
         package='ros_gz_sim',
         executable='create',
@@ -41,47 +41,32 @@ def generate_launch_description():
         output='screen'
     )
     
-    # IMPORTANT: For Gazebo Harmonium/Garden in ROS 2 Jazzy, we need to use specific bridge configurations
-    # This bridges from ROS 2 cmd_vel to Gazebo's model-specific topic
+    # Bridge ROS 2 to Gazebo (for cmd_vel)
     bridge_ros_to_gz = Node(
         package='ros_gz_bridge',
         executable='parameter_bridge',
         name='bridge_ros_to_gz',
         arguments=[
-            # From ROS 2 cmd_vel to Gazebo model/robocar/cmd_vel
-            'cmd_vel@geometry_msgs/msg/Twist]gz.msgs.Twist@/model/robocar/cmd_vel',
+            # Bridge both with and without leading slash for compatibility
+            'cmd_vel@geometry_msgs/msg/Twist@gz.msgs.Twist@/model/robocar/cmd_vel',
+            '/cmd_vel@geometry_msgs/msg/Twist@gz.msgs.Twist@/model/robocar/cmd_vel',
         ],
         output='screen'
     )
     
-    # This bridges from Gazebo to ROS 2 for sensor data and other feedback
+    # Bridge Gazebo to ROS 2 (for sensor data)
     bridge_gz_to_ros = Node(
         package='ros_gz_bridge',
         executable='parameter_bridge',
         name='bridge_gz_to_ros',
         arguments=[
-            # From Gazebo to ROS 2 for joint states and other feedback
             '/model/robocar/joint_state@sensor_msgs/msg/JointState[gz.msgs.Model',
             '/world/maze/model/robocar/pose@geometry_msgs/msg/Pose[gz.msgs.Pose',
         ],
         output='screen'
     )
     
-    # Launch our application nodes
-    sensor_node = Node(
-        package='robocar_simulation',
-        executable='sensor_node',
-        name='sensor_node',
-        output='screen'
-    )
-    
-    logger_node = Node(
-        package='robocar_simulation',
-        executable='logger_node',
-        name='logger_node',
-        output='screen'
-    )
-    
+    # Command monitor to debug commands
     command_monitor = Node(
         package='robocar_simulation',
         executable='command_monitor',
@@ -95,7 +80,5 @@ def generate_launch_description():
         spawn_entity,
         bridge_ros_to_gz,
         bridge_gz_to_ros,
-        sensor_node,
-        logger_node,
         command_monitor
     ])

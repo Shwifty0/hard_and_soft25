@@ -42,19 +42,17 @@ def generate_launch_description():
     )
     
     # Bridge to connect ROS2 topics with Gazebo
-    # This bridges cmd_vel from ROS2 to Gazebo (modified to match keyboard_control's topic)
+    # This bridges cmd_vel from ROS2 to Gazebo's model-specific topic
+    # UPDATED: Using correct Harmonium bridge syntax with directionality
     bridge_cmd_vel = Node(
         package='ros_gz_bridge',
         executable='parameter_bridge',
-        arguments=['cmd_vel@geometry_msgs/msg/Twist@ignition.msgs.Twist'],
-        output='screen'
-    )
-    
-    # This bridges joint states from Gazebo to ROS2
-    bridge_joint_states = Node(
-        package='ros_gz_bridge',
-        executable='parameter_bridge',
-        arguments=['joint_states@sensor_msgs/msg/JointState@ignition.msgs.Model'],
+        arguments=[
+            # ROS to Gazebo bridge (cmd_vel → /model/robocar/cmd_vel)
+            'cmd_vel@geometry_msgs/msg/Twist]gz.msgs.Twist@/model/robocar/cmd_vel',
+            # Gazebo to ROS bridge (odom from Gazebo → ROS)
+            '/model/robocar/odometry@nav_msgs/msg/Odometry[gz.msgs.Odometry',
+        ],
         output='screen'
     )
     
@@ -66,17 +64,17 @@ def generate_launch_description():
         output='screen'
     )
     
-    controller_node = Node(
-        package='robocar_simulation',
-        executable='controller_node',
-        name='controller_node',
-        output='screen'
-    )
-    
     logger_node = Node(
         package='robocar_simulation',
         executable='logger_node',
         name='logger_node',
+        output='screen'
+    )
+    
+    command_monitor = Node(
+        package='robocar_simulation',
+        executable='command_monitor',
+        name='command_monitor',
         output='screen'
     )
     
@@ -85,8 +83,7 @@ def generate_launch_description():
         robot_state_publisher,
         spawn_entity,
         bridge_cmd_vel,
-        bridge_joint_states,
         sensor_node,
-        controller_node,
-        logger_node
+        logger_node,
+        command_monitor
     ])

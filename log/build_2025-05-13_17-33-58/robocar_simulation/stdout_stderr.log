@@ -1,0 +1,24 @@
+running develop
+running egg_info
+writing robocar_simulation.egg-info/PKG-INFO
+writing dependency_links to robocar_simulation.egg-info/dependency_links.txt
+writing entry points to robocar_simulation.egg-info/entry_points.txt
+writing requirements to robocar_simulation.egg-info/requires.txt
+writing top-level names to robocar_simulation.egg-info/top_level.txt
+reading manifest file 'robocar_simulation.egg-info/SOURCES.txt'
+writing manifest file 'robocar_simulation.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/shwifty/SOSE25/hard_soft/robocar_ws/install/robocar_simulation/lib/python3.12/site-packages/robocar-simulation.egg-link (link to .)
+Installing command_monitor script to /home/shwifty/SOSE25/hard_soft/robocar_ws/install/robocar_simulation/lib/robocar_simulation
+Installing controller_node script to /home/shwifty/SOSE25/hard_soft/robocar_ws/install/robocar_simulation/lib/robocar_simulation
+Installing direct_velocity_test script to /home/shwifty/SOSE25/hard_soft/robocar_ws/install/robocar_simulation/lib/robocar_simulation
+Installing harmonium_velocity_test script to /home/shwifty/SOSE25/hard_soft/robocar_ws/install/robocar_simulation/lib/robocar_simulation
+Installing keyboard_control script to /home/shwifty/SOSE25/hard_soft/robocar_ws/install/robocar_simulation/lib/robocar_simulation
+Installing logger_node script to /home/shwifty/SOSE25/hard_soft/robocar_ws/install/robocar_simulation/lib/robocar_simulation
+Installing robocar_test script to /home/shwifty/SOSE25/hard_soft/robocar_ws/install/robocar_simulation/lib/robocar_simulation
+Installing sensor_node script to /home/shwifty/SOSE25/hard_soft/robocar_ws/install/robocar_simulation/lib/robocar_simulation
+Installing simple_keyboard script to /home/shwifty/SOSE25/hard_soft/robocar_ws/install/robocar_simulation/lib/robocar_simulation
+Installing test_velocity script to /home/shwifty/SOSE25/hard_soft/robocar_ws/install/robocar_simulation/lib/robocar_simulation
+
+Installed /home/shwifty/SOSE25/hard_soft/robocar_ws/build/robocar_simulation
+running symlink_data

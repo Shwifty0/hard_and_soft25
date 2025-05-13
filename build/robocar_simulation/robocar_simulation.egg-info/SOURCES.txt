@@ -12,6 +12,7 @@ robocar_simulation/controller_node.py
 robocar_simulation/harmonium_velocity_test.py
 robocar_simulation/keyboard_control.py
 robocar_simulation/logger_node.py
+robocar_simulation/robocar_test.py
 robocar_simulation/sensor_node.py
 robocar_simulation/simple_keyboard_controller.py
 robocar_simulation/test_velocity_publisher.py

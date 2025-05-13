@@ -43,6 +43,7 @@ setup(
             'simple_keyboard = robocar_simulation.simple_keyboard_controller:main',
             'direct_velocity_test = robocar_simulation.direct_velocity_test:main',
             'harmonium_velocity_test = robocar_simulation.harmonium_velocity_test:main',
+            'robocar_test = robocar_simulation.robocar_test:main',
         ],
     },
 )
